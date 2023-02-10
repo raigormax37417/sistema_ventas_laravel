@@ -32,17 +32,17 @@
             <div class="row">
                 @foreach($modulos as $modulo)
                     <div class="col-12 col-md-3">
-                        <div class="card">
-                            <img class="card-img-top" src="{{url("/img/$modulo.png")}}">
-                            <div class="card-body">
+                        <div class="card bg-light shadow-lg rounded">
+                            <a href="{{route("$modulo.index")}}" class="card-body">
+                                <img class="card-img-top" src="{{url("/img/$modulo.png")}}">
                                 <h5 class="card-title">
                                     {{$modulo === "acerca_de" ? "Acerca de" : ucwords($modulo)}}
                                 </h5>
-                                <a href="{{route("$modulo.index")}}" class="btn btn-success">
-                                    Ir a&nbsp;{{$modulo === "acerca_de" ? "Acerca de" : ucwords($modulo)}}
-                                    <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </div>
+                                <div class="btn btn-primary">
+                                        Ir a&nbsp;{{$modulo === "acerca_de" ? "Acerca de" : ucwords($modulo)}}
+                                        <i class="fa fa-arrow-right"></i>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 @endforeach
