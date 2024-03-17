@@ -56,8 +56,23 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
+        //check if bar code exist
+        $barCode = Producto::where('codigo_barras',$request->codigo_barras)->first();
+
+        if($barCode !== null) {
+            Producto::where('id',$barCode->id)->update([
+                'descripcion' => $request->descripcion,
+                'precio_compra' => $request->precio_compra,
+                'precio_venta' => $request->precio_venta,
+                // update stock and add new items
+                'existencia' => ($barCode->existencia + $request->existencia)
+            ]);
+
+            return redirect()->route("productos.index")->with("mensaje", "Producto Actualizado");
+        }
         $producto = new Producto($request->input());
         $producto->saveOrFail();
+
         return redirect()->route("productos.index")->with("mensaje", "Producto guardado");
     }
 
