@@ -20,27 +20,6 @@
 --}}
 <!doctype html>
 <html lang="es">
-<!--
-
-  ____          _____               _ _           _
- |  _ \        |  __ \             (_) |         | |
- | |_) |_   _  | |__) |_ _ _ __ _____| |__  _   _| |_ ___
- |  _ <| | | | |  ___/ _` | '__|_  / | '_ \| | | | __/ _ \
- | |_) | |_| | | |  | (_| | |   / /| | |_) | |_| | ||  __/
- |____/ \__, | |_|   \__,_|_|  /___|_|_.__/ \__, |\__\___|
-         __/ |                               __/ |
-        |___/                               |___/
-
-    Blog:       https://parzibyte.me/blog
-    Ayuda:      https://parzibyte.me/blog/contrataciones-ayuda/
-    Contacto:   https://parzibyte.me/blog/contacto/
-
-    Copyright (c) 2020 Luis Cabrera Benito
-    Licenciado bajo la licencia MIT
-
-    El texto de arriba debe ser incluido en cualquier redistribucion
--->
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -55,10 +34,17 @@
             /*Para la barra inferior fija*/
             padding-bottom: 70px;
         }
+        .bg-custom-green {
+            background: #208b3a;
+        }
+        /*Modificación del color de la barra inferior*/
+        .navbar {
+            border: 1px solid #208b3a !important;
+        }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-dark bg-nav-shadow bg-dark fixed-top">
+<nav class="navbar navbar-expand-md navbar-dark bg-nav-shadow bg-custom-green fixed-top">
     <a class="navbar-brand" target="_blank" href="//parzibyte.me/blog">{{env("APP_NAME")}}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             id="botonMenu" aria-label="Mostrar u ocultar menú">
@@ -129,7 +115,7 @@
 <main class="container-fluid">
     @yield("contenido")
 </main>
-<footer class="px-2 py-2 fixed-bottom bg-dark">
+<footer class="px-2 py-2 fixed-bottom bg-custom-green">
     <span class="text-muted">Punto de venta en Laravel
         <i class="fa fa-code text-white"></i>
         con
