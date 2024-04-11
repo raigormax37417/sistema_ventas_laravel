@@ -25,6 +25,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="{{env("APP_NAME")}}">
     <meta name="author" content="Parzibyte">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield("titulo") - {{env("APP_NAME")}}</title>
     <link href="{{url("/css/bootstrap.min.css")}}" rel="stylesheet">
     <link href="{{url("/css/all.min.css")}}" rel="stylesheet">
@@ -116,16 +117,7 @@
     @yield("contenido")
 </main>
 <footer class="px-2 py-2 fixed-bottom bg-custom-green">
-    <span class="text-muted">Punto de venta en Laravel
-        <i class="fa fa-code text-white"></i>
-        con
-        <i class="fa fa-heart" style="color: #ff2b56;"></i>
-        por
-        <a class="text-white" href="//parzibyte.me/blog">Parzibyte</a>
-        &nbsp;|&nbsp;
-        <a target="_blank" class="text-white" href="//github.com/parzibyte/sistema_ventas_laravel">
-            <i class="fab fa-github"></i>
-        </a>
+    <span class="text-muted">Punto de venta
     </span>
 </footer>
 </body>

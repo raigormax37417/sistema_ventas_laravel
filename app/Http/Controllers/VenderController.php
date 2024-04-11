@@ -89,8 +89,7 @@ class VenderController extends Controller
 
     private function guardarProductos($productos)
     {
-        session(["productos" => $productos,
-        ]);
+        session(["productos" => $productos]);
     }
 
     public function cancelarVenta()
@@ -120,9 +119,25 @@ class VenderController extends Controller
                 ->route("vender.index")
                 ->with("mensaje", "Producto no encontrado");
         }
+
         $this->agregarProductoACarrito($producto);
+        
         return redirect()
             ->route("vender.index");
+    }
+
+    public function buscarProducto(Request $request)
+    {
+        $codigoOProducto = $request->post('codigo');
+
+        $productos = Producto::where('codigo_barras','LIKE',"%{$codigoOProducto}%")
+        ->where('descripcion', 'LIKE', "%{$codigoOProducto}%")
+        ->paginate(10);
+
+        if(count($productos) === 0)
+            $productos = array();
+
+        return response()->json($productos);
     }
 
     private function agregarProductoACarrito($producto)

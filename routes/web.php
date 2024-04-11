@@ -35,6 +35,7 @@ Route::middleware("auth")
         Route::resource("ventas", "VentasController");
         Route::get("/vender", "VenderController@index")->name("vender.index");
         Route::post("/productoDeVenta", "VenderController@agregarProductoVenta")->name("agregarProductoVenta");
+        Route::post("/busquedaProducto", "VenderController@buscarProducto")->name('buscarProducto');
         Route::delete("/productoDeVenta", "VenderController@quitarProductoDeVenta")->name("quitarProductoDeVenta");
         Route::post("/terminarOCancelarVenta", "VenderController@terminarOCancelarVenta")->name("terminarOCancelarVenta");
     });

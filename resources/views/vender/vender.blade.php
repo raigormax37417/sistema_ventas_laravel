@@ -50,13 +50,14 @@
                     </form>
                 </div>
                 <div class="col-12 col-md-6">
-                    <form action="{{route("agregarProductoVenta")}}" method="post">
+                    <form action="javascript:void(0);">
                         @csrf
                         <div class="form-group">
                             <label for="codigo">Código de barras</label>
                             <input id="codigo" autocomplete="off" required autofocus name="codigo" type="text"
                                    class="form-control"
                                    placeholder="Código de barras">
+                            <div class="list"></div>
                         </div>
                     </form>
                 </div>
@@ -103,4 +104,67 @@
             @endif
         </div>
     </div>
+    <script type="text/javascript">
+        const path = `{{route("buscarProducto")}}` 
+        // catch event keyup and find barcode or product name
+        document.getElementById('codigo').addEventListener('keyup', (e) => {
+            e.preventDefault()
+            const codigo = document.getElementById('codigo')
+            const csrfToken = document.head.querySelector("[name=csrf-token]").content;
+            const listItemContainer = document.querySelector('.list')
+            if(codigo.value.length === 0)
+                listItemContainer.innerHTML = "";
+            if(codigo.value.length >= 3) {
+                fetch(path,{
+                    headers: {
+                        "X-CSRF-Token": csrfToken,
+                        "Content-Type": "application/json"
+                    },
+                    credentials: "same-origin",
+                    method: 'POST',
+                    dataType: 'JSON',
+                    data: JSON.stringify({codigo: codigo}),
+                }).then(res => res.json())
+                .then(response => {
+                    // console.log(response.data)
+                    if(Object.entries(response.data).length === 0)
+                        console.log("empty")
+                    
+
+                    listItemContainer.innerHTML = ""
+
+                    response.data.forEach(item => {
+                        const tagElement = document.createElement('a')
+                        tagElement.textContent = `${item.codigo_barras} - ${item.descripcion}`
+                        tagElement.classList.add('tag')
+                        
+                        listItemContainer.appendChild(tagElement)
+                    })
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            }
+            
+        })
+    </script>
+    <style>
+        .list {
+            display: flex;
+            flex-flow: wrap column;
+            position: absolute;
+        }
+
+        .tag {
+            padding: 0.4em;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            min-width: 6em;
+            width: 15em;
+            margin-bottom: 0.2em;
+            cursor: pointer;
+            z-index: 9;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+        }
+    </style>
 @endsection
